@@ -17,20 +17,27 @@ void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
 }
-void   long_to_hex(long num, char *values, int *i)
+void   long_to_hex(long num)
 {
     char hex_values[] = "0123456789abcdef";
+	char *values = malloc(20);
+	int i = 0;
+	if (!values)
+        return;
     if (num == 0)
     {
-        values[(*i)++] = '0';
+        values[i++] = '0';
         return ;
     }
     while (num > 0)
     {
         int remainder = num % 16;
-	    values[(*i)++] = hex_values[remainder];
+	    values[i++] = hex_values[remainder];
         num/=16;
     }
+	while (i > 0)
+		ft_putchar_fd(values[--i], 1);
+	free(values);
 }
 
 void	ft_putstr_fd(char *s, int fd)
@@ -41,18 +48,10 @@ void	ft_putstr_fd(char *s, int fd)
 }
 void    ft_putptr_fd(char *s, int fd)
 {
-    char *values = malloc(20);
-    if (!values)
-        return;
-    int i = 0;
     long address = (long)s;
     ft_putchar_fd('0', fd);
     ft_putchar_fd('x', fd);
-    long_to_hex(address, values, &i);
-    while (i > 0) {
-        ft_putchar_fd(values[--i], fd);
-    }
-    free(values);
+    long_to_hex(address);
 }
 void	ft_putnbr_fd(int n, int fd)
 {
@@ -83,7 +82,10 @@ void ft_putuinbr_fd(unsigned int num, int fd)
 	else
 		ft_putchar_fd(num % 10 + '0', fd);
 }
-
+void  ft_nbrthex_fd(int num)
+{
+    long_to_hex(num);
+}
 int	ft_printf(const char *data, ...)
 {
 	va_list list;
@@ -125,6 +127,12 @@ int	ft_printf(const char *data, ...)
                 ft_putuinbr_fd(va_arg(list, unsigned int), 1);
                 i++;
             }
+            if (data[i+1] == 'x')
+            {
+                ft_nbrthex_fd(va_arg(list, int));;
+                i++;
+
+            }
             if (data[i+1] == '%')
             {
                 ft_putchar_fd('%', 1);
@@ -142,14 +150,14 @@ int main(void)
 {
     char a = 'a';
     char *ptr =  &a;
-    ft_printf("m/y ans: %p", ptr);
-    printf("\n");
+    ft_printf("m/y ans: %p\n", ptr);
     int dec = 012;
-    ft_printf("in %%i: %i", dec);
-    printf("\n");
+    ft_printf("in %%i: %i\n", dec);
     dec = 012;
-    ft_printf("in dec: %d", dec);
-    printf("\n");
+    ft_printf("in dec: %d\n", dec);
     int num = -10;
-    ft_printf("%u", (unsigned int)num);
+    ft_printf("%u\n", (unsigned int)num);
+    int n = 56088;
+    printf("%x", n);
+    ft_printf("%x\n", n);
 }
