@@ -14,5 +14,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
+# include "libft/libft.h"
 int	ft_printf(const char *data, ...);
+int	ft_putchar_fd(char c, int fd);
 #endif
