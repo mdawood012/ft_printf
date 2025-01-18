@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I./libft
+CFLAGS = -Wall -Wextra -Werror -I libft
 SRCS = printf.c
 OBJS = $(SRCS:.c=.o)
 DEPS = libftprintf.h
@@ -7,29 +7,29 @@ NAME = libftprintf.a
 LIB = ar rcs
 RM = rm -f
 
-LIBFT = ./libft
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
 
-libft_makefile:
-	$(MAKE) -C libft
+all: $(NAME)
 
-all: $(NAME) libft_makefile
-
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(LIBFT)
 	$(LIB) $(NAME) $(OBJS)
-	$(CC) $(CFLAGS) -L$(LIBFT) -lft -o $(NAME)
 	
 %.o: %.c $(DEPS)
-	@echo "Compiling $<"
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
+
 clean:
-	$(RM) $(NAME) $(OBJS)
+	$(RM) $(OBJS)
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
 	$(RM) $(NAME)
-	$(MAKE) fclean -C $(LIBFT)
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
-.PHONY : all clean fclean re libft_makefile
+.PHONY : all clean fclean re
 
