@@ -17,4 +17,10 @@
 # include "libft/libft.h"
 int	ft_printf(const char *data, ...);
 int	ft_putchar_fd(char c, int fd);
+int	ft_putstr_fd(char *s, int fd);
+int ft_putptr_fd(char *s, int fd, int capital);
+int	ft_putnbr_fd(int n, int fd);
+int long_to_hex(long num, int capital);
+int ft_putuinbr_fd(unsigned int num, int fd);
+int ft_nbrthex_fd(int num, int capital);
 #endif
