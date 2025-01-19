@@ -25,43 +25,43 @@ int	ft_printf(const char *data, ...)
         {
             if (data[i+1]  == 'c')
             {
-                count += ft_putchar_fd(va_arg(list, int), 1);
+                count += my_putchar_fd(va_arg(list, int), 1);
                 i++;
             }
             if (data[i+1] == 's')
             {    
-                count += ft_putstr_fd(va_arg(list, char *), 1);
+                count += my_putstr_fd(va_arg(list, char *), 1);
                 i++;
             }
             if (data[i+1] == 'p')
             {
-                count += ft_putptr_fd(va_arg(list, char *), 1, capital > data[i+1]);
+                count += my_putptr_fd(va_arg(list, char *), 1, capital > data[i+1]);
                 i++;
             }
             if (data[i+1] == 'd' || data[i+1] == 'i')
             {    
-                count += ft_putnbr_fd(va_arg(list, int), 1);
+                count += my_putnbr_fd(va_arg(list, int), 1);
                 i++;
             }
             if (data[i+1] == 'u')
             {
-                ft_putuinbr_fd(va_arg(list, unsigned int), 1);
+                my_putuinbr_fd(va_arg(list, unsigned int), 1);
                 i++;
             }
             if (data[i+1] == 'x' || data[i+1] == 'X')
             {
-                ft_nbrthex_fd(va_arg(list, int), capital > data[i+1]);
+                my_nbrthex_fd(va_arg(list, int), capital > data[i+1]);
                 i++;
             }
             if (data[i+1] == '%')
             {
-                ft_putchar_fd('%', 1);
+                my_putchar_fd('%', 1);
                 i++;
             }
         }
         else
         {
-            ft_putchar_fd(data[i], 1);
+            my_putchar_fd(data[i], 1);
             count++;
         }
 		i++;
