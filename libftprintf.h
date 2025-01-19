@@ -9,8 +9,8 @@
 /*   Updated: 2025/01/09 12:40:24 by mdawood          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
@@ -18,9 +18,9 @@
 int	ft_printf(const char *data, ...);
 int	my_putchar_fd(char c, int fd);
 int	my_putstr_fd(char *s, int fd);
-int my_putptr_fd(char *s, int fd, int capital);
+int 	my_putptr_fd(char *s, int fd, int capital);
 int	my_putnbr_fd(int n, int fd);
-int long_to_hex(long num, int capital);
-int my_putuinbr_fd(unsigned int num, int fd);
-int my_nbrthex_fd(int num, int capital);
+int 	long_to_hex(long num, int capital);
+int 	my_putuinbr_fd(unsigned int num, int fd);
+int 	my_nbrthex_fd(int num, int capital);
 #endif

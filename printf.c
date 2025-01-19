@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "libftprintf.h"
 
-int	ft_printf(const char *data, ...)
+int	ft_printf(const char *data,...)
 {
 	va_list list;
 	va_start(list, data);

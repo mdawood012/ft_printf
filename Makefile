@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I libft
-SRCS = printf.c
+SRCS = printf.c main.c
 OBJS = $(SRCS:.c=.o)
 DEPS = libftprintf.h
 NAME = libftprintf.a

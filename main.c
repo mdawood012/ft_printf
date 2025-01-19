@@ -1,6 +1,6 @@
 #include "libftprintf.h"
 
-int main(void)
+int main()
 {
      int num = 2;
      int result = ft_printf("%d", num);
