@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I libft
-SRCS = ft_printf.c main.c
+SRCS = ft_printf.c long_to_hex.c nbrthex_fd.c putchar_fd.c putnbr_fd.c putptr_fd.c putstr_fd.c putuinbr_fd.c
 OBJS = $(SRCS:.c=.o)
 DEPS = ft_printf.h
 NAME = libftprintf.a
@@ -12,9 +12,9 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT)
+$(NAME):$(LIBFT) $(OBJS)
 	$(LIB) $(NAME) $(OBJS)
-	
+
 %.o: %.c $(DEPS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
