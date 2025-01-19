@@ -1,4 +1,4 @@
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 int   long_to_hex(long num, int capital)
 {
@@ -22,9 +22,9 @@ int   long_to_hex(long num, int capital)
 	while (i > 0)
     {
         if (capital)
-		    count += ft_putchar_fd(ft_toupper(values[--i]), 1);
+		    count += my_putchar_fd(ft_toupper(values[--i]), 1);
         else
-            count += ft_putchar_fd(values[--i], 1);   
+            count += my_putchar_fd(values[--i], 1);   
     }
     return count;
 }

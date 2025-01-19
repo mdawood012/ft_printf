@@ -1,6 +1,6 @@
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-int  ft_nbrthex_fd(int num, int capital)
+int  my_nbrthex_fd(int num, int capital)
 {
     int count;
     count = long_to_hex(num, capital);
