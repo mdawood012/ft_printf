@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I libft
-SRCS = main.c ft_printf.c long_to_hex.c nbrthex_fd.c putchar_fd.c putnbr_fd.c putptr_fd.c putstr_fd.c putuinbr_fd.c
+SRCS = ft_printf.c long_to_hex.c putchar_fd.c putnbr_fd.c putptr_fd.c putstr_fd.c putuinbr_fd.c
 OBJS = $(SRCS:.c=.o)
 DEPS = ft_printf.h
 NAME = libftprintf.a

@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-int   long_to_hex(long num, int capital)
+int   long_to_hex(unsigned long num, int capital)
 {
     char *hex_values;
     char values[20];
@@ -12,19 +12,18 @@ int   long_to_hex(long num, int capital)
     count = 0;
 	i = 0;
 	if (num == 0)
-        return 0;
+        count += my_putchar_fd('0', 1);
     while (num > 0)
     {
         remainder = num % 16;
-	    values[i++] = hex_values[remainder];
+        if (capital)
+            values[i++] = ft_toupper(hex_values[remainder]);
+	    else
+            values[i++] = hex_values[remainder];
         num/=16;
     }
-	while (i > 0)
-    {
-        if (capital)
-		    count += my_putchar_fd(ft_toupper(values[--i]), 1);
-        else
-            count += my_putchar_fd(values[--i], 1);   
-    }
+    while (i > 0)
+        count += my_putchar_fd(values[--i], 1);
     return count;
 }
+
