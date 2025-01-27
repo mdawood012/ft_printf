@@ -15,6 +15,17 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include "libft/libft.h"
+struct my_specifier
+{
+    char specifier;
+    int (*handler)(va_list list, int capital);
+};
+
+struct my_specifier my_specifiers[] = {
+    {'c', handler_char},
+    {'s', handler_string},
+};
+
 int	ft_printf(const char *data, ...);
 int	my_putchar_fd(char c, int fd);
 int	my_putstr_fd(char *s, int fd);
