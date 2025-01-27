@@ -21,11 +21,51 @@ int handler_string(va_list list, int fd)
     return (my_putstr_fd(va_arg(list, char*), fd));
 }
 
+int handle_specifier(char specifier, va_list list, int fd)
+{
+    int i;
+    
+    i = 0;
+    while (my_specifiers[i].specifier != '\0')
+    {
+        if (my_specifiers[i].specifier == specifier)
+        {
+            return (my_specifiers[i].handler(list, fd));
+        }
+        i++;
+    }
+    return (0);
+}
+
+struct my_specifier my_specifiers[] = {
+    {'c', handler_char},
+    {'s', handler_string}
+};
+
 int ft_printf(const char *data, ...)
 {
     va_list list;
     va_start(list, data);
-    
+
+    int i;
+    i = 0;
+    while (data[i] != '\0')
+    {
+        if (data[i] == '%')
+            handle_specifier(data[i+1], list, 1);
+            i++;
+        else
+            write(1, &data[i], 1);
+        i++;
+    }
+    va_end(list);
+    return 0;
+}
+
+int main()
+{
+    ft_printf("hello %s", "hello");
+    return (0);
 }
 // int	ft_printf(const char *data,...)
 // {
