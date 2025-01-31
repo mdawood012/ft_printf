@@ -1,5 +1,10 @@
 #include "ft_printf.h"
 
+int handler_string(va_list list, int fd)
+{
+    return (my_putstr_fd(va_arg(list, char*), fd));
+}
+
 int	my_putstr_fd(char *s, int fd)
 {
     int count;

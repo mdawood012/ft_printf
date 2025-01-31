@@ -12,105 +12,56 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
-int handler_char(va_list list, int fd) 
+int handle_specifier(char specifier, va_list list, int fd)
 {
-    return (my_putchar_fd(va_arg(list, int), fd));
-}
+    int i;
+    i = 0;
 
-int handler_string(va_list list, int fd)
-{
-    return (my_putstr_fd(va_arg(list, char*), fd));
+    while (my_specifiers[i].specifier != '\0')
+    {
+        if (my_specifiers[i].specifier == specifier)
+        {
+            return (my_specifiers[i].handler(list, fd));
+        }
+        i++;
+    }
+    return (0);
 }
 struct my_specifier my_specifiers[] = {
     {'c', handler_char},
     {'s', handler_string},
+    {'p', handler_pointer},
+    {'d', handler_decimal},
+    {'i', handler_decimal},
+    {'u', handler_unsigned},
+    {'x', handler_hex},
+    {'X', handler_hex_upper},
 };
+
 int ft_printf(const char *data, ...)
 {
     va_list list;
     va_start(list, data);
+    int count;
     int i;
+
+    count = 0;
     i = 0;
-    int j;
-    j = 0;
-    struct my_specifier my_var;
     while (data[i] != '\0')
     {
         if (data[i] == '%')
         {
-            j = 0;
-            my_var.specifier = data[i+1];//c
-            while (my_specifiers[j].specifier != '\0')
-            {
-                if (my_specifiers[j].specifier == my_var.specifier)
-                {
-                    printf("hello");
-                    break;
-                }
-                j++;
-            }
+            count += handle_specifier(data[i+1], list, 1);
+            if (data[i+1] == '%')
+                count += my_putchar_fd('%', 1);
+            i++;
+
         }
+        else
+            count += write(1, &data[i], 1);
         i++;
     }
     va_end(list);
-    return (0);
-    
+    return (count);
 }
-
-// int	ft_printf(const char *data,...)
-// {
-// 	va_list list;
-// 	va_start(list, data);
-// 	int i = 0;
-//     int count = 0;
-//     int capital = 88;
-
-// 	while (data[i] != '\0')
-// 	{
-// 		if (data[i] == '%')
-//         {
-//             if (data[i+1]  == 'c')
-//             {
-//                 //handler_char(list, 1);
-//                 count += my_putchar_fd(va_arg(list, int), 1);
-//                 i++;
-//             }
-//             else if (data[i+1] == 's')
-//             {    
-//                 count += my_putstr_fd(va_arg(list, char *), 1);
-//                 i++;
-//             }
-//             else if (data[i+1] == 'p')
-//             {
-//                 count += my_putptr_fd(va_arg(list, void *), 1, capital = 0);
-//                 i++;
-//             }
-//             else if (data[i+1] == 'd' || data[i+1] == 'i')
-//             {    
-//                 count += my_putnbr_fd(va_arg(list, int), 1);
-//                 i++;
-//             }
-//             else if (data[i+1] == 'u')
-//             {
-//                 count += my_putuinbr_fd(va_arg(list, unsigned int), 1);
-//                 i++;
-//             }
-//             else if (data[i+1] == 'x' || data[i+1] == 'X')
-//             {
-//                 count += long_to_hex(va_arg(list, unsigned int), capital == data[i+1]);
-//                 i++;
-//             }
-//             else if (data[i+1] == '%')
-//             {
-//                 count += my_putchar_fd('%', 1);
-//                 i++;
-//             }
-//         }
-//         else
-//             count += my_putchar_fd(data[i], 1);
-// 		i++;
-// 	}
-// 	va_end(list);
-// 	return (count);
-// }
 

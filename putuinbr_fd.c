@@ -1,5 +1,8 @@
 #include "ft_printf.h"
-
+int handler_unsigned(va_list list, int fd)
+{
+	return (my_putuinbr_fd(va_arg(list, unsigned int), fd));
+}
 int my_putuinbr_fd(unsigned int num, int fd)
 {
     int count;
