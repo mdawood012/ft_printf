@@ -1,9 +1,6 @@
 #include "ft_printf.h"
 
-int  my_nbrthex_fd(int num, int capital)
+int handler_hex(va_list list, int fd)
 {
-    int count;
-    count = long_to_hex(num, capital);
-    return count;
-
+    return (long_to_hex(va_arg(list, unsigned long), fd));
 }

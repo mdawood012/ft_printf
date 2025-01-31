@@ -1,5 +1,8 @@
 #include "ft_printf.h"
-
+int handler_decimal(va_list list, int fd)
+{
+	return (my_putnbr_fd(va_arg(list, int), fd));
+}
 int	my_putnbr_fd(int n, int fd)
 {
     int     count;
