@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
+#include <stdio.h>
 
 int handler_char(va_list list, int fd) 
 {
@@ -20,13 +21,42 @@ int handler_string(va_list list, int fd)
 {
     return (my_putstr_fd(va_arg(list, char*), fd));
 }
-
+struct my_specifier my_specifiers[] = {
+    {'c', handler_char},
+    {'s', handler_string},
+};
 int ft_printf(const char *data, ...)
 {
     va_list list;
     va_start(list, data);
+    int i;
+    i = 0;
+    int j;
+    j = 0;
+    struct my_specifier my_var;
+    while (data[i] != '\0')
+    {
+        if (data[i] == '%')
+        {
+            j = 0;
+            my_var.specifier = data[i+1];//c
+            while (my_specifiers[j].specifier != '\0')
+            {
+                if (my_specifiers[j].specifier == my_var.specifier)
+                {
+                    printf("hello");
+                    break;
+                }
+                j++;
+            }
+        }
+        i++;
+    }
+    va_end(list);
+    return (0);
     
 }
+
 // int	ft_printf(const char *data,...)
 // {
 // 	va_list list;
